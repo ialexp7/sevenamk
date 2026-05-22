@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SevenAMK – Marketing, IA y Crecimiento Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0f0f0;
+  --bg2:#e8e8e8;
+  --bg3:#e0e0e0;
+  --card:rgba(255,255,255,0.8);
+  --card-border:rgba(150,150,160,0.2);
+  --cyan:#1a9abf;
+  --cyan2:#27CDFF;
+  --dark:#1a1a1a;
+  --gray1:#2a2724;
+  --gray2:#5a5a66;
+  --gray3:#8a8a96;
+  --marble1:#f5f5f5;
+  --marble2:#e8e8e8;
+  --marble3:#d8d8d8;
+  --marble4:#b8b8c0;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--gray1);font-family:"Poppins",sans-serif;font-weight:400;line-height:1.65;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(26,154,191,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.14s ease}
+
+/* MARBLE BG */
+.marble-bg{
+  background-color:var(--bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, #f4f4f5 0%, #eaeaec 25%, #f0f0f2 50%, #e5e5e9 75%, #ededef 100%);
+  background-blend-mode:multiply,normal;
+}
+.marble-vein{position:absolute;pointer-events:none;opacity:0.18}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.9s,visibility 0.9s}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-brand{font-family:"Nunito",sans-serif;font-size:3rem;font-weight:900;color:var(--gray1);opacity:0;animation:loaderIn 0.8s 0.3s forwards;letter-spacing:-0.02em}
+.loader-brand span{color:var(--cyan)}
+.loader-bar{width:140px;height:1.5px;background:var(--marble4);border-radius:2px;margin-top:28px;overflow:hidden}
+.loader-bar-fill{height:100%;background:var(--cyan);width:0;animation:loadFill 1.6s 0.5s ease forwards}
+@keyframes loaderIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loadFill{to{width:100%}}
+
+/* PROGRESS */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--cyan);z-index:200;width:0;transition:width 0.08s}
+
+/* NAV */
+nav{position:fixed;top:40px;left:0;right:0;z-index:100;padding:0 56px;height:68px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);background:rgba(240,240,242,0.85);border-bottom:1px solid var(--card-border)}
+.nav-brand{font-family:"Nunito",sans-serif;font-size:1.5rem;font-weight:900;color:var(--gray1);letter-spacing:-0.02em;text-decoration:none}
+.nav-brand span{color:var(--cyan)}
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{color:var(--gray2);text-decoration:none;font-size:13.5px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--gray1)}
+.nav-cta{background:var(--dark);color:#fff;font-weight:600;font-size:13px;padding:10px 24px;border-radius:50px;text-decoration:none;transition:all 0.25s;border:none;cursor:pointer;font-family:"Poppins",sans-serif}
+.nav-cta:hover{background:var(--cyan);transform:translateY(-1px)}
+
+section{padding:110px 56px;position:relative;margin:0}
+.section-inner{max-width:1180px;margin:0 auto}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:108px}
+.hero-inner{max-width:1180px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+
+/* vein lines */
+.hero-vein{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-vein svg{width:100%;height:100%;opacity:0.15}
+
+/* ANIMATED BRAND NAME */
+.hero-logo-anim{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.brand-big{font-family:"Nunito",sans-serif;font-size:clamp(4rem,8vw,7rem);font-weight:900;color:var(--gray1);letter-spacing:-0.04em;line-height:1;position:relative}
+.brand-big .seven{display:inline-block;animation:wobble 6s ease-in-out infinite}
+.brand-big .amk{color:var(--cyan);display:inline-block;animation:wobble 6s ease-in-out 0.4s infinite}
+.brand-big .mk{font-size:0.55em;vertical-align:middle;color:var(--gray3);font-weight:700}
+@keyframes wobble{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-8px) rotate(-1deg)}75%{transform:translateY(4px) rotate(0.8deg)}}
+.brand-tagline{font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray3);margin-top:14px;font-weight:500}
+.brand-ring{width:200px;height:200px;border-radius:50%;border:1px solid rgba(26,154,191,0.15);position:absolute;animation:ringPulse 4s ease-in-out infinite}
+.brand-ring:nth-child(2){width:300px;height:300px;animation-delay:0.8s;opacity:0.6}
+.brand-ring:nth-child(3){width:400px;height:400px;animation-delay:1.6s;opacity:0.35}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.06);opacity:0.8}}
+
+
+  40%{transform:translateY(-5px) scale(1.1)}
+  60%{transform:translateY(-3px) scale(1.05)}
+}
+h1{font-family:"Nunito",sans-serif;font-size:clamp(2.4rem,4.5vw,3.8rem);font-weight:900;line-height:1.1;color:var(--gray1);margin-bottom:18px;opacity:0;animation:slideR 0.7s 2.15s forwards;letter-spacing:-0.02em}
+h1 .hl{color:var(--cyan)}
+.hero-sub{font-size:15px;color:var(--gray2);line-height:1.82;margin-bottom:12px;max-width:480px;opacity:0;animation:slideR 0.7s 2.3s forwards}
+.hero-sub2{font-size:13.5px;color:var(--gray3);margin-bottom:34px;font-weight:500;opacity:0;animation:slideR 0.7s 2.45s forwards}
+.hero-sub2 strong{color:var(--gray2)}
+.hero-btns{opacity:0;animation:slideR 0.7s 2.6s forwards;display:flex;gap:12px;flex-wrap:wrap}
+@keyframes slideR{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;font-weight:600;font-size:14px;padding:14px 28px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s;font-family:"Poppins",sans-serif}
+.btn-primary:hover{background:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,154,191,0.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--gray2);font-size:14px;font-family:"Poppins",sans-serif;padding:14px 24px;border-radius:50px;text-decoration:none;border:1px solid var(--marble4);cursor:pointer;transition:all 0.3s;font-weight:500}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(26,154,191,0.05)}
+
+.section-label{font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:"";width:18px;height:1px;background:var(--cyan)}
+h2{font-family:"Nunito",sans-serif;font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:900;color:var(--gray1);margin-bottom:12px;line-height:1.15;letter-spacing:-0.02em}
+.section-sub{font-size:15px;color:var(--gray2);max-width:540px;margin-bottom:56px;line-height:1.78}
+
+/* ─── SERVICES ─── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.service-card{background:var(--card);border:1px solid var(--card-border);border-radius:20px;padding:32px 26px;cursor:default;transition:all 0.35s;backdrop-filter:blur(8px);text-align:center}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(26,154,191,0.3);box-shadow:0 16px 40px rgba(180,160,130,0.2)}
+.service-icon{font-size:36px;margin-bottom:14px;display:block;transition:transform 0.4s;line-height:1}
+.service-card:hover .service-icon{transform:scale(1.25) rotate(-6deg)}
+.service-card h3{font-family:"Nunito",sans-serif;font-size:15.5px;font-weight:800;color:var(--gray1);margin-bottom:8px}
+.service-card p{font-size:13px;color:var(--gray2);line-height:1.72}
+
+/* ─── WHY ─── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.why-quote{font-family:"Nunito",sans-serif;font-size:clamp(1.3rem,2.2vw,1.9rem);font-weight:900;color:var(--gray1);line-height:1.35;padding-left:20px;border-left:3px solid var(--cyan);margin-bottom:36px;letter-spacing:-0.01em}
+.why-pillars{display:flex;flex-direction:column;gap:16px}
+.pillar{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border:1px solid var(--card-border);border-radius:16px;background:var(--card);backdrop-filter:blur(8px);transition:all 0.3s;cursor:default}
+.pillar:hover{border-color:rgba(26,154,191,0.25);transform:translateX(4px)}
+.pillar-icon{font-size:26px;flex-shrink:0;transition:transform 0.35s;line-height:1.2}
+.pillar:hover .pillar-icon{transform:scale(1.2) rotate(-8deg)}
+.pillar h4{font-family:"Nunito",sans-serif;font-size:15px;font-weight:800;color:var(--gray1);margin-bottom:4px}
+.pillar p{font-size:13px;color:var(--gray2);line-height:1.65}
+
+/* WHY RIGHT — Animated brand */
+.why-brand-wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.why-brand{font-family:"Nunito",sans-serif;font-size:5rem;font-weight:900;letter-spacing:-0.04em;color:var(--gray1);animation:floatBrand 7s ease-in-out infinite}
+.why-brand span{color:var(--cyan)}
+.why-brand sub{font-size:0.55em;color:var(--gray3);vertical-align:middle;font-weight:700}
+.why-sub-tag{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray3);font-weight:500}
+@keyframes floatBrand{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.02)}}
+
+/* ─── RESULTS ─── */
+.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.result-card{border:1px solid var(--card-border);border-radius:18px;padding:30px 16px;text-align:center;transition:all 0.35s;background:var(--card);backdrop-filter:blur(8px);cursor:default}
+.result-card:hover{border-color:rgba(26,154,191,0.25);transform:translateY(-5px);box-shadow:0 14px 36px rgba(180,160,130,0.18)}
+.result-num{font-family:"Nunito",sans-serif;font-size:2.4rem;font-weight:900;color:var(--gray1);margin-bottom:5px;line-height:1;letter-spacing:-0.03em}
+.result-label{font-size:12.5px;color:var(--gray2);line-height:1.55;font-weight:500}
+.result-icon{font-size:30px;margin-bottom:12px;display:block;transition:transform 0.4s;line-height:1}
+.result-card:hover .result-icon{transform:scale(1.25) rotate(-5deg)}
+
+/* ─── PRICING ─── */
+.pricing-notice{border:1px solid var(--card-border);border-radius:14px;padding:20px 24px;margin-bottom:48px;font-size:14px;color:var(--gray2);line-height:1.78;background:var(--card);backdrop-filter:blur(8px)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plan{border:1px solid var(--card-border);border-radius:22px;padding:36px 28px;position:relative;transition:all 0.35s;background:var(--card);backdrop-filter:blur(8px);cursor:default}
+.plan:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(180,160,130,0.18)}
+.plan.featured{border-color:rgba(26,154,191,0.35)}
+.plan-badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:20px;background:rgba(150,150,165,0.15);color:var(--gray2)}
+.plan.featured .plan-badge{background:var(--cyan);color:#fff}
+.plan h3{font-family:"Nunito",sans-serif;font-size:1.3rem;font-weight:900;color:var(--gray1);margin-bottom:5px;letter-spacing:-0.02em}
+.plan-value{font-size:13.5px;color:var(--cyan);font-weight:600;margin-bottom:4px}
+.plan-duration{font-size:12px;color:var(--gray3);margin-bottom:24px;font-weight:500}
+.plan-features{list-style:none;margin-bottom:30px;display:flex;flex-direction:column;gap:10px}
+.plan-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--gray2)}
+.plan-features li::before{content:"–";color:var(--cyan);font-size:12px;flex-shrink:0;margin-top:1px}
+.plan-cta{width:100%;padding:13px;border-radius:50px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;transition:all 0.3s;font-family:"Poppins",sans-serif}
+.plan-cta.outline{background:transparent;border:1px solid var(--marble4);color:var(--gray2)}
+.plan-cta.outline:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(26,154,191,0.05)}
+.plan-cta.solid{background:var(--dark);color:#fff}
+.plan-cta.solid:hover{background:var(--cyan);color:#fff}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:start}
+.contact-info p{color:var(--gray2);margin-bottom:24px;font-size:15px;line-height:1.82;margin-top:14px}
+.contact-detail{display:flex;align-items:center;gap:12px;color:var(--gray2);font-size:14px;margin-bottom:12px;font-weight:500}
+.contact-detail-icon{width:32px;height:32px;border-radius:10px;border:1px solid var(--card-border);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.form-wrap{border:1px solid var(--card-border);border-radius:22px;padding:38px;background:var(--card);backdrop-filter:blur(12px)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray3);margin-bottom:7px;font-weight:600}
+.form-group input,.form-group textarea{width:100%;background:rgba(240,240,244,0.7);border:1px solid var(--marble4);border-radius:12px;padding:13px 16px;color:var(--gray1);font-family:"Poppins",sans-serif;font-size:14px;transition:border-color 0.25s,background 0.25s;outline:none;resize:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--cyan);background:rgba(255,255,255,0.85)}
+.form-group textarea{height:120px}
+.form-submit{width:100%;padding:15px;background:var(--dark);color:#fff;font-weight:700;font-size:14px;border-radius:50px;border:none;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:"Poppins",sans-serif}
+.form-submit:hover{background:var(--cyan)}
+.form-submit:disabled{opacity:0.5;cursor:not-allowed}
+.form-message{margin-top:14px;padding:12px 16px;border-radius:12px;font-size:13px;display:none}
+.form-message.success{background:rgba(26,154,191,0.08);border:1px solid rgba(26,154,191,0.2);color:var(--cyan);display:block}
+.form-message.error{background:rgba(200,60,60,0.06);border:1px solid rgba(200,60,60,0.2);color:#c84040;display:block}
+
+
+/* ─── ARGENTINA TOAST ─── */
+.arg-toast{
+  position:fixed;
+  bottom:105px;
+  right:100px;
+  background:linear-gradient(135deg,#74acdf 0%,#fff 50%,#74acdf 100%);
+  color:#003087;
+  font-family:"Nunito",sans-serif;
+  font-weight:900;
+  font-size:16px;
+  padding:14px 22px;
+  border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.2),0 0 0 3px #f6c700;
+  z-index:1000;
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(12px) scale(0.85);
+  transition:opacity 0.3s,transform 0.3s;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.arg-toast.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.arg-toast .arg-flag{font-size:22px}
+
+/* ─── CHATBOT ─── */
+.chatbot-fab{
+  position:fixed;bottom:28px;right:28px;z-index:500;
+  width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--dark);transition:background 0.3s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0;
+  box-shadow:0 8px 28px rgba(0,0,0,0.25);
+  overflow:visible;
+}
+.chatbot-fab:hover{background:var(--cyan)}
+.fab-inner{
+  position:relative;
+  width:62px;height:62px;
+  display:flex;align-items:center;justify-content:center;
+  animation:fabIdle 7s ease-in-out infinite;
+}
+.fab-robot{font-size:28px;line-height:1;display:block;position:relative;z-index:2}
+.fab-ball{
+  position:absolute;
+  font-size:16px;
+  bottom:-4px;right:-6px;
+  z-index:3;
+  animation:ballBounce 7s ease-in-out infinite;
+  transform-origin:center bottom;
+}
+/* every 7s: head tilt then ball bounce */
+@keyframes fabIdle{
+  0%{transform:rotate(0deg)}
+  /* wink + head tilt at 1s into cycle */
+  14%{transform:rotate(0deg)}
+  18%{transform:rotate(-14deg)}
+  24%{transform:rotate(10deg)}
+  30%{transform:rotate(0deg)}
+  100%{transform:rotate(0deg)}
+}
+@keyframes ballBounce{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  14%{transform:translateY(0) rotate(0deg);opacity:1}
+  /* ball pops up and spins when head tilts */
+  20%{transform:translateY(-28px) rotate(180deg);opacity:1}
+  26%{transform:translateY(-8px) rotate(300deg);opacity:1}
+  30%{transform:translateY(0) rotate(360deg);opacity:1}
+  38%{transform:translateY(-14px) rotate(540deg);opacity:1}
+  44%{transform:translateY(0) rotate(720deg);opacity:1}
+  50%{transform:translateY(0) rotate(720deg);opacity:0.9}
+  100%{transform:translateY(0) rotate(720deg);opacity:1}
+}
+/* wink eye overlay using ::after on the button */
+.fab-robot-wrap{position:relative;display:inline-block}
+.fab-wink{
+  position:absolute;
+  top:6px;right:4px;
+  width:7px;height:3px;
+  background:var(--dark);
+  border-radius:2px;
+  opacity:0;
+  animation:winkEye 7s ease-in-out infinite;
+}
+@keyframes winkEye{
+  0%,14%{opacity:0;height:3px}
+  18%{opacity:1;height:1px;top:8px}
+  26%{opacity:1;height:1px}
+  30%{opacity:0}
+  100%{opacity:0}
+}
+.chatbot-window{position:fixed;bottom:104px;right:28px;z-index:500;width:338px;background:var(--marble1);border:1px solid var(--card-border);border-radius:22px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.18)}
+.chatbot-window.open{display:flex}
+.chatbot-header{padding:16px 18px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.5)}
+.chatbot-header h4{font-family:"Nunito",sans-serif;font-size:14.5px;font-weight:800;color:var(--gray1)}
+.chatbot-header span{font-size:11px;color:var(--gray3)}
+.chatbot-header-brand{font-family:"Nunito",sans-serif;font-size:1.1rem;font-weight:900;color:var(--gray1);letter-spacing:-0.02em}
+.chatbot-header-brand span{color:var(--cyan)}
+.chatbot-messages{height:265px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:rgba(248,246,242,0.6)}
+.msg{padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.55;max-width:90%;animation:msgIn 0.22s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{background:rgba(255,255,255,0.85);color:var(--gray2);align-self:flex-start;border-bottom-left-radius:3px;border:1px solid var(--card-border)}
+.msg.user{background:var(--dark);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.chatbot-suggestions{padding:0 14px 14px;display:flex;flex-direction:column;gap:6px;background:rgba(248,246,242,0.6)}
+.sug-btn{background:rgba(255,255,255,0.7);border:1px solid var(--card-border);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--gray2);text-align:left;cursor:pointer;transition:all 0.2s;font-family:"Poppins",sans-serif}
+.sug-btn:hover{border-color:var(--cyan);color:var(--cyan);background:#fff}
+.typing{display:flex;gap:4px;align-items:center;padding:11px 14px;background:rgba(255,255,255,0.85);border:1px solid var(--card-border);border-radius:14px;border-bottom-left-radius:3px;align-self:flex-start}
+.typing span{width:5px;height:5px;background:var(--gray3);border-radius:50%;animation:dot 1.2s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes dot{0%,80%,100%{opacity:0.25}40%{opacity:1}}
+
+/* ─── FOOTER ─── */
+footer{background:#e4e4e8;border-top:1px solid rgba(150,150,165,0.2);padding:60px 56px 28px}
+.footer-inner{max-width:1180px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:52px;margin-bottom:42px}
+.footer-brand-name{font-family:"Nunito",sans-serif;font-size:1.6rem;font-weight:900;color:var(--gray1);letter-spacing:-0.02em;margin-bottom:10px}
+.footer-brand-name span{color:var(--cyan)}
+.footer-brand p{font-size:13px;color:var(--gray3);line-height:1.72}
+.footer-col h5{font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray3);margin-bottom:14px;font-weight:600}
+.footer-col a{display:block;font-size:13.5px;color:var(--gray2);text-decoration:none;margin-bottom:9px;transition:color 0.2s}
+.footer-col a:hover{color:var(--gray1)}
+.footer-bottom{border-top:1px solid var(--card-border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--gray3)}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ─── FLOATING DOTS ─── */
+.floatstar{position:fixed;pointer-events:none;animation:starFloat linear infinite}
+.floatstar svg{display:block}
+@keyframes starFloat{
+  0%{opacity:0;transform:translateY(0) rotate(0deg) scale(0.6)}
+  10%{opacity:1}
+  80%{opacity:0.7;transform:translateY(-48vh) rotate(200deg) scale(1)}
+  100%{opacity:0;transform:translateY(-52vh) rotate(220deg) scale(0.9)}
+}
+
+
+
+
+/* ─── BANNER PROMOCIONAL ─── */
+.promo-banner{width:100%;background:#0a0a0a;overflow:hidden;padding:12px 0;margin:0;display:block;position:relative;z-index:99}.promo-banner:first-of-type{position:fixed;top:0;left:0;right:0;z-index:200;padding:8px 0}
+.banner-marquee-wrap{width:100%;overflow:hidden;display:flex}
+.banner-marquee{display:flex;flex-shrink:0;animation:bannerScroll 35s linear infinite;will-change:transform}
+.banner-marquee:hover{animation-play-state:paused}
+.banner-marquee-item{display:inline-flex;align-items:center;gap:0;padding:0 52px;white-space:nowrap;flex-shrink:0;font-family:"Poppins",sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);letter-spacing:0.12em;text-transform:uppercase;line-height:1}
+.banner-marquee-item .b-off{color:#27CDFF;font-weight:700;letter-spacing:0.1em}
+.banner-marquee-item .b-dot{color:rgba(255,255,255,0.2);font-size:8px;margin:0 4px}
+@keyframes bannerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  100%{transform:translateX(-50%)}
+}
+  100%{transform:translateX(-50%)}
+}
+
+/* ─── SECTION STAR DIVIDERS ─── */
+.star-divider{width:100%;display:flex;align-items:center;justify-content:center;gap:20px;padding:18px 0;position:relative;z-index:2}
+.star-divider svg{opacity:0.45}
+.star-divider svg.big{opacity:0.6}
+
+
+.hero-eyebrow{font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px;display:flex;align-items:center;gap:10px;opacity:0;animation:slideR 0.7s 2s forwards}
+.hero-eyebrow::before{content:"";width:20px;height:1px;background:var(--cyan)}
+/* ─── HERO H1 ANIMATED ─── */
+.hero-h1{overflow:visible;animation:h1Orbit 8s ease-in-out infinite 3.2s}
+.h1-line1{
+  display:inline-block;
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--gray1);
+  opacity:0;
+  animation:h1Drop 0.7s cubic-bezier(0.22,1,0.36,1) 2.05s forwards;
+}
+.h1-line2{
+  display:inline-block;
+  font-size:clamp(4rem,9vw,7.5rem);
+  font-weight:900;
+  color:var(--gray1);
+  letter-spacing:-0.04em;
+  line-height:0.95;
+  opacity:0;
+  animation:h1Grow 0.8s cubic-bezier(0.22,1,0.36,1) 2.25s forwards;
+}
+.h1-line3{
+  display:inline-block;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  color:var(--gray2);
+  font-weight:700;
+  opacity:0;
+  animation:h1SlideUp 0.7s cubic-bezier(0.22,1,0.36,1) 2.5s forwards;
+}
+.h1-line3 .hl{
+  color:var(--cyan);
+  font-size:1.15em;
+  font-weight:900;
+  display:inline-block;
+  animation:hlPop 0.6s cubic-bezier(0.34,1.56,0.64,1) 3.1s both, hlOrbit 6s ease-in-out infinite 3.8s;
+}
+@keyframes h1Orbit{
+  0%   {transform:translate(0px, 0px) rotate(0deg)}
+  20%  {transform:translate(4px, -5px) rotate(0.4deg)}
+  40%  {transform:translate(7px, 0px) rotate(0deg)}
+  60%  {transform:translate(4px, 5px) rotate(-0.4deg)}
+  80%  {transform:translate(-2px, 3px) rotate(-0.2deg)}
+  100% {transform:translate(0px, 0px) rotate(0deg)}
+}
+@keyframes hlOrbit{
+  0%   {transform:translate(0,0) scale(1)}
+  25%  {transform:translate(3px,-4px) scale(1.03)}
+  50%  {transform:translate(5px,0) scale(1)}
+  75%  {transform:translate(2px,4px) scale(0.98)}
+  100% {transform:translate(0,0) scale(1)}
+}
+@keyframes h1Drop{
+  from{opacity:0;transform:translateY(-30px) scale(0.9)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes h1Grow{
+  from{opacity:0;transform:scale(0.6) translateX(-20px)}
+  to{opacity:1;transform:scale(1) translateX(0)}
+}
+@keyframes h1SlideUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes hlPop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.18) rotate(-2deg)}
+  100%{transform:scale(1) rotate(0deg)}
+}
+
+
+
+
+/* ─── PLAN HOVER GLOWS ─── */
+.plan{transition:all 0.4s cubic-bezier(0.22,1,0.36,1)}
+
+/* MENTORIA - cyan/celeste glow */
+.plan:nth-child(1):hover{
+  transform:translateY(-10px) scale(1.03);
+  border-color:rgba(39,205,255,0.7);
+  box-shadow:
+    0 0 0 1px rgba(39,205,255,0.4),
+    0 0 30px rgba(39,205,255,0.35),
+    0 0 60px rgba(39,205,255,0.2),
+    0 0 100px rgba(39,205,255,0.1),
+    0 20px 40px rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.92);
+}
+.plan:nth-child(1):hover .plan-badge{
+  background:rgba(39,205,255,0.2);
+  color:#0a7fa8;
+  box-shadow:0 0 12px rgba(39,205,255,0.4);
+}
+.plan:nth-child(1):hover h3{color:#0a7fa8}
+.plan:nth-child(1)::after{
+  content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(39,205,255,0.18) 0%,transparent 65%);
+  transition:opacity 0.4s;
+}
+.plan:nth-child(1):hover::after{opacity:1}
+
+/* GROW - silver/platinum glow */
+.plan:nth-child(2):hover{
+  transform:translateY(-10px) scale(1.04);
+  border-color:rgba(200,200,220,0.9);
+  box-shadow:
+    0 0 0 1px rgba(200,200,220,0.6),
+    0 0 30px rgba(180,180,210,0.5),
+    0 0 60px rgba(160,160,200,0.3),
+    0 0 100px rgba(140,140,180,0.15),
+    0 20px 40px rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.96);
+}
+.plan:nth-child(2):hover .plan-badge{
+  background:linear-gradient(135deg,#e8e8f0,#b8b8d0,#e8e8f0);
+  color:#4a4a6a;
+  box-shadow:0 0 16px rgba(180,180,220,0.6);
+  animation:silverShine 1.5s ease-in-out infinite;
+}
+.plan:nth-child(2)::after{
+  content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(200,200,230,0.25) 0%,transparent 65%);
+  transition:opacity 0.4s;
+}
+.plan:nth-child(2):hover::after{opacity:1}
+@keyframes silverShine{
+  0%,100%{background:linear-gradient(135deg,#e8e8f0,#b8b8d0,#e8e8f0)}
+  50%{background:linear-gradient(135deg,#f0f0f8,#d8d8f0,#f0f0f8)}
+}
+
+/* PREMIUM - gold glow */
+.plan:nth-child(3):hover{
+  transform:translateY(-10px) scale(1.03);
+  border-color:rgba(212,175,55,0.8);
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,0.5),
+    0 0 30px rgba(212,175,55,0.4),
+    0 0 60px rgba(212,175,55,0.25),
+    0 0 100px rgba(212,175,55,0.12),
+    0 20px 40px rgba(0,0,0,0.12);
+  background:rgba(255,253,245,0.96);
+}
+.plan:nth-child(3):hover .plan-badge{
+  background:linear-gradient(135deg,#f5e690,#d4af37,#f5e690);
+  color:#7a5c00;
+  box-shadow:0 0 18px rgba(212,175,55,0.6);
+  animation:goldShine 1.5s ease-in-out infinite;
+}
+.plan:nth-child(3)::after{
+  content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,0.2) 0%,transparent 65%);
+  transition:opacity 0.4s;
+}
+.plan:nth-child(3):hover::after{opacity:1}
+@keyframes goldShine{
+  0%,100%{background:linear-gradient(135deg,#f5e690,#d4af37,#f5e690)}
+  50%{background:linear-gradient(135deg,#fffacc,#f0c84a,#fffacc)}
+}
+
+/* Shimmer sweep on all plans */
+.plan::before{
+  content:"";
+  position:absolute;
+  top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);
+  transform:skewX(-20deg);
+  transition:none;
+  pointer-events:none;
+  border-radius:22px;
+}
+.plan:hover::before{
+  left:160%;
+  transition:left 0.55s ease;
+}
+
+/* ─── TITLE ORBIT MOTION ─── */
+h2{animation:titleOrbit 9s ease-in-out infinite}
+h1.hero-h1{animation:h1Orbit 8s ease-in-out infinite 3.2s}
+.section-label{animation:titleOrbit 11s ease-in-out infinite 1s}
+.why-quote{animation:titleOrbit 10s ease-in-out infinite 0.5s}
+@keyframes titleOrbit{
+  0%  {transform:translate(0,0)}
+  20% {transform:translate(3px,-4px)}
+  40% {transform:translate(5px,1px)}
+  60% {transform:translate(2px,5px)}
+  80% {transform:translate(-2px,2px)}
+  100%{transform:translate(0,0)}
+}
+
+/* ─── HERO CARD ─── */
+.hero-card{
+  background:rgba(255,255,255,0.55);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(200,200,210,0.35);
+  border-radius:28px;
+  padding:48px 44px;
+  box-shadow:0 8px 40px rgba(150,150,170,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(26,154,191,0.4), transparent);
+}
+
+/* ─── MARBLE VEINS ANIMATION ─── */
+@keyframes veinDraw{from{stroke-dashoffset:2000}to{stroke-dashoffset:0}}
+
+@media(max-width:900px){
+  nav{padding:0 20px}.nav-links{display:none}
+  section{padding:80px 20px}
+  .hero-inner,.why-grid,.contact-grid,.footer-top{grid-template-columns:1fr;gap:44px}
+  .results-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid{grid-template-columns:1fr}
+  .hero-visual{order:-1}
+  footer{padding:44px 20px 24px}
+}
+</style>
+</head>
+<body class="marble-bg">
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="floatdots" style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden"></div>
+
+<!-- LOADER -->
+<div id="loader" class="marble-bg">
+  <div class="loader-brand">Seven<span>AMK</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-brand">Seven<span>AMK</span></a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Trabajemos juntos</a>
+</nav>
+</div>
+
+</div>
+  
+</div>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <!-- marble veins -->
+  <div class="hero-vein">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+      <path d="M-50,200 C100,180 250,350 400,280 S700,100 900,200 S1150,380 1300,300" fill="none" stroke="#c0c0cc" stroke-width="1.5" stroke-dasharray="2000" stroke-dashoffset="2000" style="animation:veinDraw 4s 2s ease forwards"/>
+      <path d="M-50,450 C150,420 300,500 500,460 S800,380 1000,460 S1200,520 1300,490" fill="none" stroke="#aaaabc" stroke-width="1" stroke-dasharray="2000" stroke-dashoffset="2000" style="animation:veinDraw 5s 2.5s ease forwards"/>
+      <path d="M200,-50 C220,150 180,300 240,500 S320,700 300,850" fill="none" stroke="#c0c0cc" stroke-width="0.8" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation:veinDraw 3.5s 3s ease forwards"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner" style="position:relative;z-index:1">
+    <div class="hero-card">
+      <div class="hero-eyebrow">Agencia de Marketing Digital &amp; IA</div>
+      <h1 class="hero-h1">
+  <span class="h1-line1">¡No busques</span><br>
+  <span class="h1-line2">clientes</span><br>
+  <span class="h1-line3">Hacé que te <span class="hl">encuentren!</span></span>
+</h1>
+      <p class="hero-sub">Transformamos negocios en presencia digital real mediante marketing estratégico, automatización e inteligencia artificial.</p>
+      <p class="hero-sub2">Las marcas ya no compiten solo por vender. Compiten por <strong>atención.</strong></p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">Trabajemos juntos</a>
+        <a href="#planes" class="btn-secondary">Ver planes</a>
+      </div>
+    </div>
+    <div class="hero-logo-anim reveal">
+      <div class="brand-ring"></div>
+      <div class="brand-ring"></div>
+      <div class="brand-ring"></div>
+      <div class="brand-big">
+        <span class="seven">7</span><span class="amk">AMK</span>
+      </div>
+      <p class="brand-tagline">Marketing · IA · Crecimiento</p>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- PRICING -->
+<section id="planes" style="background:#f0f0f2">
+  <div class="section-inner">
+    <div class="section-label reveal">Planes</div>
+    <h2 class="reveal">Inversión <span style="color:var(--cyan)">a tu medida</span></h2>
+    <div class="pricing-notice reveal">Todos los valores se determinan a medida luego de analizar cada marca. Cada negocio requiere estrategias distintas; por ello realizamos un análisis previo exhaustivo antes de definir la implementación, inversión y escalabilidad requerida.</div>
+    <div class="pricing-grid">
+      <div class="plan reveal">
+        <div class="plan-badge">Escalable</div>
+        <h3>Mentoría 1:1 — Elevate</h3>
+        <div class="plan-value">Cotización a medida</div>
+        <div class="plan-duration">Análisis personalizado</div>
+        <ul class="plan-features">
+          <li>Mentoría personalizada</li><li>Estrategia de crecimiento</li><li>Optimización digital</li><li>Implementación básica con IA</li><li>Recomendaciones accionables</li>
+        </ul>
+        <button class="plan-cta outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Quiero elevar mi marca</button>
+      </div>
+      <div class="plan featured reveal">
+        <div class="plan-badge">Más elegido</div>
+        <h3>Grow Marketing</h3>
+        <div class="plan-value">Estrategia personalizada</div>
+        <div class="plan-duration">Sprint de 2 semanas</div>
+        <ul class="plan-features">
+          <li>Análisis de datos</li><li>Estrategia a medida</li><li>Implementación digital</li><li>Optimización de contenido</li><li>Branding estratégico</li><li>Implementaciones IA</li><li>Optimización de conversiones</li>
+        </ul>
+        <button class="plan-cta solid" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Quiero crecer</button>
+      </div>
+      <div class="plan reveal">
+        <div class="plan-badge">Premium</div>
+        <h3>Premium Membership</h3>
+        <div class="plan-value">Suscripción exclusiva</div>
+        <div class="plan-duration">45 días membresía corporativa</div>
+        <ul class="plan-features">
+          <li>Gestión estratégica premium</li><li>Implementaciones avanzadas con IA</li><li>Branding completo</li><li>Optimización publicitaria</li><li>Automatizaciones de flujos</li><li>Seguimiento personalizado</li><li>Estrategia de escalabilidad global</li><li>Consultoría continua</li>
+        </ul>
+        <button class="plan-cta outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Quiero escalar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- WHY -->
+<section id="nosotros" style="background:#f0f0f2">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div>
+        <div class="section-label reveal">Por qué SevenAMK</div>
+        <div class="why-quote reveal">"No es magia. Es estrategia, creatividad y algoritmos bien ejecutados."</div>
+        <div class="why-pillars">
+          <div class="pillar reveal"><span class="pillar-icon">📈</span><div><h4>No vendemos humo</h4><p>El crecimiento digital es estrategia, análisis y ejecución correcta. Cada acción tiene un propósito medible.</p></div></div>
+          <div class="pillar reveal"><span class="pillar-icon">🧠</span><div><h4>La IA potencia la creatividad</h4><p>La inteligencia artificial amplifica la capacidad del equipo humano para crear impacto real y sostenido.</p></div></div>
+          <div class="pillar reveal"><span class="pillar-icon">🚀</span><div><h4>Presencia digital que escala</h4><p>Creamos ecosistemas digitales que generan impacto real y ayudan a los negocios a crecer profesionalmente.</p></div></div>
+        </div>
+      </div>
+      <div class="why-brand-wrap reveal">
+        <div class="why-brand">7<span>AMK</span></div>
+        <p class="why-sub-tag">Marketing · IA · Crecimiento</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- RESULTS -->
+<section id="resultados" style="background:#e8e8ec">
+  <div class="section-inner">
+    <div class="section-label reveal">Números que importan</div>
+    <h2 class="reveal">Resultados <span style="color:var(--cyan)">reales</span></h2>
+    <p class="section-sub reveal">Lo que nos define no son las palabras, sino los resultados de nuestros clientes.</p>
+    <div class="results-grid">
+      <div class="result-card reveal"><span class="result-icon">⏳</span><div class="result-num" data-target="7" data-suffix="+">0</div><div class="result-label">Años de Experiencia</div></div>
+      <div class="result-card reveal"><span class="result-icon">🌐</span><div class="result-num" data-target="1" data-suffix="M+">0</div><div class="result-label">Alcance Generado</div></div>
+      <div class="result-card reveal"><span class="result-icon">🔥</span><div class="result-num" style="font-size:1.05rem;padding:6px 0;line-height:1.4">Reales</div><div class="result-label">Estrategias de Crecimiento</div></div>
+      <div class="result-card reveal"><span class="result-icon">⚙️</span><div class="result-num" style="font-size:1.05rem;padding:6px 0;line-height:1.4">Inteligentes</div><div class="result-label">Automatizaciones</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios" style="background:#e8e8ec">
+  <div class="section-inner">
+    <div class="section-label reveal">Lo que hacemos</div>
+    <h2 class="reveal">Transformamos ideas en<br>sistemas <span style="color:var(--cyan)">digitales</span></h2>
+    <p class="section-sub reveal">Diseñados para atraer, posicionar y convertir.</p>
+    <div class="services-grid">
+      <div class="service-card reveal"><span class="service-icon">📣</span><h3>Marketing Digital</h3><p>Estrategias integrales que conectan tu marca con las personas correctas en el momento justo.</p></div>
+      <div class="service-card reveal">
+  <span class="service-icon" style="font-size:0">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Meta wordmark M shape in official blue gradient -->
+      <defs>
+        <linearGradient id="metaG" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0668E1"/>
+          <stop offset="100%" stop-color="#0052CC"/>
+        </linearGradient>
+      </defs>
+      <path d="M4 24C4 20 6 16 9.5 13C12 11 14 12 16 14.5L18 18L20 14.5C22 12 24 11 26.5 13C30 16 32 20 32 24C32 26.5 30.5 28 28.5 28C26.5 28 25 26.5 23 23L18 15L13 23C11 26.5 9.5 28 7.5 28C5.5 28 4 26.5 4 24Z" fill="url(#metaG)"/>
+    </svg>
+  </span>
+  <h3>Meta Ads</h3>
+  <p>Campañas en Facebook e Instagram optimizadas por datos para maximizar tu retorno de inversión.</p>
+</div>
+      <div class="service-card reveal">
+  <span class="service-icon" style="font-size:0;display:block;margin:0 auto">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M34 18.4C34 17.3 33.9 16.2 33.7 15.2H18V21.3H26.9C26.5 23.3 25.3 25 23.5 26.1V30H28.9C32 27.2 34 23.2 34 18.4Z" fill="#4285F4"/>
+      <path d="M18 34C22.4 34 26.1 32.6 28.9 30L23.5 26.1C22.1 27 20.2 27.6 18 27.6C13.7 27.6 10.1 24.8 8.8 21H3.2V25C6 30.6 11.6 34 18 34Z" fill="#34A853"/>
+      <path d="M8.8 21C8.5 20.1 8.3 19.1 8.3 18C8.3 16.9 8.5 15.9 8.8 15V11H3.2C2 13.3 1.3 15.6 1.3 18C1.3 20.4 2 22.7 3.2 25L8.8 21Z" fill="#FBBC04"/>
+      <path d="M18 8.4C20.4 8.4 22.6 9.3 24.3 10.9L29 6.2C26.1 3.5 22.4 2 18 2C11.6 2 6 5.4 3.2 11L8.8 15C10.1 11.2 13.7 8.4 18 8.4Z" fill="#EA4335"/>
+    </svg>
+  </span>
+  <h3>Google Ads</h3>
+  <p>Pauta en buscadores que captura intención de compra y convierte visitantes en clientes reales.</p>
+</div>
+      <div class="service-card reveal"><span class="service-icon">✨</span><h3>Branding</h3><p>Identidad visual y narrativa que genera reconocimiento, confianza y diferenciación de marca.</p></div>
+      <div class="service-card reveal"><span class="service-icon">⚡</span><h3>Implementaciones con IA</h3><p>Integración de inteligencia artificial en tus procesos para escalar sin aumentar el equipo.</p></div>
+      <div class="service-card reveal"><span class="service-icon">⚙️</span><h3>Automatizaciones</h3><p>Flujos de trabajo automatizados que ahorran tiempo, eliminan errores y mejoran la experiencia.</p></div>
+      <div class="service-card reveal">
+  <span class="service-icon" style="font-size:0;display:flex;gap:8px;align-items:center;justify-content:center">
+    <!-- OpenAI / ChatGPT logo -->
+    <svg width="30" height="30" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835 9.964 9.964 0 0 0-6.212-2.772 10.079 10.079 0 0 0-10.078 6.215 9.964 9.964 0 0 0-6.667 4.834 10.079 10.079 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 6.212 2.771 10.079 10.079 0 0 0 10.079-6.217 9.965 9.965 0 0 0 6.666-4.834 10.079 10.079 0 0 0-1.24-11.615zm-17.26 14.35a7.46 7.46 0 0 1-4.797-1.737l.237-.136 7.964-4.6a1.297 1.297 0 0 0 .655-1.134v-11.23l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.49 7.502zm-16.124-6.892a7.46 7.46 0 0 1-.893-5.023l.236.142 7.965 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103l-8.051 4.649a7.504 7.504 0 0 1-10.24-2.745zm-2.09-17.409a7.46 7.46 0 0 1 3.905-3.279V17.56a1.297 1.297 0 0 0 .654 1.134l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.012L4.89 21.304a7.504 7.504 0 0 1-2.832-10.384zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .114-.012l8.048 4.648a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.297 1.297 0 0 0-.647-1.13zm3.35-5.043l-.236-.144-7.965-4.6a1.297 1.297 0 0 0-1.309 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l8.05-4.645a7.497 7.497 0 0 1 11.135 7.766zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756l-.236.136-7.965 4.6a1.297 1.297 0 0 0-.654 1.134zm1.829-3.943l4.33-2.501 4.332 2.5v4.999l-4.331 2.5-4.331-2.5z" fill="#10a37f"/>
+    </svg>
+    <!-- Anthropic / Claude logo -->
+    <svg width="30" height="30" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32.73 8H26.2L38 38h6.53L32.73 8z" fill="#D97757"/>
+      <path d="M13.27 8L1.47 38H8l2.67-6.97h13.2L26.53 38h6.54L21.07 8h-7.8zm-.4 17.33l4.13-10.76 4.13 10.76h-8.26z" fill="#D97757"/>
+    </svg>
+  </span>
+  <h3>ChatGPT &amp; Claude AI</h3>
+  <p>Implementación de agentes y asistentes de IA personalizados para tu negocio y clientes.</p>
+</div>
+      <div class="service-card reveal"><span class="service-icon">📈</span><h3>Estrategias de Crecimiento</h3><p>Planes de escalabilidad basados en análisis de datos, competencia y oportunidades de mercado.</p></div>
+      <div class="service-card reveal"><span class="service-icon">🎨</span><h3>Contenido Creativo</h3><p>Producción de contenido que engancha, educa y convierte en cada plataforma digital.</p></div>
+      <div class="service-card reveal"><span class="service-icon">🎯</span><h3>Optimización de Conversiones</h3><p>Análisis y mejora continua de cada punto de contacto para aumentar tu tasa de conversión.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<section id="contacto" style="background:#e8e8ec">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Contacto</div>
+        <h2>Haz que tu marca deje de pasar <span style="color:var(--cyan)">desapercibida</span></h2>
+        <p>Cada gran marca comenzó con una conversación. Cuéntanos sobre tu negocio y construyamos juntos la estrategia que necesitás para crecer.</p>
+        <div class="contact-detail"><div class="contact-detail-icon">📧</div> sevenamk@gmail.com</div>
+        <div class="contact-detail"><div class="contact-detail-icon">🌐</div> Marketing · IA · Crecimiento Digital</div>
+      </div>
+      <div class="reveal">
+        <div class="form-wrap">
+          <form id="contactForm">
+            <div class="form-group"><label>Nombre</label><input type="text" name="name" placeholder="Tu nombre completo" required></div>
+            <div class="form-group"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de tu empresa o marca"></div>
+            <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="tu@email.com" required></div>
+            <div class="form-group"><label>Mensaje</label><textarea name="message" placeholder="Contanos sobre tu negocio y objetivos..." required></textarea></div>
+            <input type="hidden" name="_subject" value="Nueva consulta desde SevenAMK">
+            <input type="hidden" name="_captcha" value="false">
+            <button type="submit" class="form-submit" id="submitBtn"><span id="submitText">Enviar mensaje</span></button>
+          </form>
+          <div class="form-message" id="formMsg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner">
+  <div class="banner-marquee-wrap"><div class="banner-marquee"><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span><span class="banner-marquee-item">🌟 &nbsp;SevenAMK &nbsp;<span class="b-off">7% OFF</span>&nbsp; en tu primera compra &nbsp;&nbsp;<span class="b-dot">✦</span>&nbsp;&nbsp; </span></div></div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Seven<span>AMK</span></div>
+        <p>Marketing, IA y crecimiento digital. Transformamos negocios en presencia digital real.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <a href="#inicio">Inicio</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a>
+        <a href="#resultados">Resultados</a><a href="#planes">Planes</a><a href="#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <a href="mailto:sevenamk@gmail.com">sevenamk@gmail.com</a>
+        <a href="#contacto">Trabajemos juntos</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SevenAMK. Todos los derechos reservados.</span>
+      <span>Marketing · IA · Crecimiento</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT — botón robot animado -->
+<div class="arg-toast" id="argToast">
+  <span>🇦🇷</span> ¡Vamos Argentina che! <span>⚽</span>
+</div>
+<button class="chatbot-fab" onclick="toggleChat()" title="Chat con SevenAMK" aria-label="Abrir chat">
+  <div class="fab-inner">
+    <div class="fab-robot-wrap">
+      <span class="fab-robot">🤖</span>
+      <span class="fab-wink"></span>
+    </div>
+    <span class="fab-ball">⚽</span>
+  </div>
+</button>
+<div class="chatbot-window" id="chatWindow">
+  <div class="chatbot-header">
+    <div class="chatbot-header-brand">Seven<span>AMK</span></div>
+    <div style="margin-left:auto;text-align:right"><h4>Asistente</h4><span>En línea ahora</span></div>
+  </div>
+  <div class="chatbot-messages" id="chatMessages">
+    <div class="msg bot">¡Hola! Soy el asistente de SevenAMK. ¿En qué puedo ayudarte hoy?</div>
+  </div>
+  <div class="chatbot-suggestions" id="chatSugs">
+    <button class="sug-btn" onclick="askBot(this.textContent)">¿Qué servicios ofrecen?</button>
+    <button class="sug-btn" onclick="askBot(this.textContent)">¿Cómo trabajan?</button>
+    <button class="sug-btn" onclick="askBot(this.textContent)">¿Qué incluye Grow Marketing?</button>
+    <button class="sug-btn" onclick="askBot(this.textContent)">¿Cuáles son los costos?</button>
+    <button class="sug-btn" onclick="askBot(this.textContent)">¿Cómo puedo comenzar?</button>
+  </div>
+</div>
+
+<script>
+window.addEventListener("load",()=>setTimeout(()=>document.getElementById("loader").classList.add("hidden"),1900));
+
+(function(){
+  const c=document.getElementById("floatdots");
+  function makeStar(size, stroke, opacity){
+    const n=5, r=size/2, r2=r*0.42;
+    const pts=[];
+    for(let i=0;i<n*2;i++){
+      const ang=(i*Math.PI/n)-(Math.PI/2);
+      const rad=i%2===0?r:r2;
+      pts.push((r+rad*Math.cos(ang)).toFixed(2)+","+(r+rad*Math.sin(ang)).toFixed(2));
+    }
+    const svg=`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="${pts.join(" ")}" stroke="${stroke}" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>`;
+    return svg;
+  }
+  const strokes=["#707080","#585868","#888898","#484858","#9898a8","#606070"];
+  for(let i=0;i<28;i++){
+    const d=document.createElement("div");d.className="floatstar";
+    const size=Math.floor(Math.random()*40+18);
+    const l=Math.random()*100;
+    const del=Math.random()*16;
+    const dur=Math.random()*18+12;
+    const stroke=strokes[i%strokes.length];
+    const op=Math.random()*0.45+0.4;
+    d.style.cssText=`left:${l}vw;bottom:-${size}px;animation-duration:${dur}s;animation-delay:${del}s;opacity:${op}`;
+    d.innerHTML=makeStar(size,stroke,op);
+    c.appendChild(d);
+  }
+})();
+
+const cursor=document.getElementById("cursor"),ring=document.getElementById("cursorRing");
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+"px";cursor.style.top=my+"px"});
+(function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+"px";ring.style.top=ry+"px";requestAnimationFrame(loop)})();
+document.querySelectorAll("a,button,.service-card,.plan,.pillar,.result-card").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{ring.style.transform="translate(-50%,-50%) scale(2.2)";ring.style.borderColor="rgba(26,154,191,0.55)"});
+  el.addEventListener("mouseleave",()=>{ring.style.transform="translate(-50%,-50%) scale(1)";ring.style.borderColor="rgba(26,154,191,0.4)"});
+});
+
+const pbar=document.getElementById("progressBar");
+window.addEventListener("scroll",()=>{pbar.style.width=((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100)+"%"});
+
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add("visible"),i*60)})
+},{threshold:0.1});
+document.querySelectorAll(".reveal").forEach(el=>revObs.observe(el));
+
+const countObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target,target=+el.dataset.target,suffix=el.dataset.suffix||"";
+      let cur=0;const step=target/55;
+      const t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t)}el.textContent=Math.floor(cur)+suffix},20);
+      countObs.unobserve(el);
+    }
+  })
+},{threshold:0.5});
+document.querySelectorAll("[data-target]").forEach(c=>countObs.observe(c));
+
+document.getElementById("contactForm").addEventListener("submit",async function(e){
+  e.preventDefault();
+  const btn=document.getElementById("submitBtn"),txt=document.getElementById("submitText"),msg=document.getElementById("formMsg");
+  btn.disabled=true;txt.textContent="Enviando...";msg.className="form-message";
+  try{
+    const res=await fetch("https://formsubmit.co/ajax/sevenamk@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:new FormData(this)});
+    const json=await res.json();
+    if(json.success){msg.className="form-message success";msg.textContent="Mensaje enviado correctamente. Nos comunicaremos en breve.";this.reset()}
+    else throw new Error();
+  }catch{msg.className="form-message error";msg.textContent="Error al enviar. Escribinos a sevenamk@gmail.com"}
+  btn.disabled=false;txt.textContent="Enviar mensaje";
+});
+
+const botAnswers={
+  "¿Qué servicios ofrecen?":"Ofrecemos desde Growth Marketing y pauta digital (Meta/Google Ads) hasta automatizaciones avanzadas e integración de IA con ChatGPT y Claude.",
+  "¿Cómo trabajan?":"Analizamos tu marca, diseñamos una estrategia basada en datos, optimizamos tus conversiones y ejecutamos con precisión técnica.",
+  "¿Qué incluye Grow Marketing?":"Es un sprint de 2 semanas de análisis de datos, estrategia, branding, optimización de contenido e implementaciones de IA para acelerar tus resultados.",
+  "¿Cuáles son los costos?":"No aplicamos tarifas fijas. Cada marca es única, por lo que cotizamos de manera personalizada tras un análisis de tus objetivos.",
+  "¿Cómo puedo comenzar?":"Desplázate hasta el formulario de contacto para agendar tu primera sesión de análisis. ¡Estamos listos para ayudarte!"
+};
+function toggleChat(){
+  document.getElementById("chatWindow").classList.toggle("open");
+  const toast=document.getElementById("argToast");
+  toast.classList.add("show");
+  clearTimeout(window._argTimer);
+  window._argTimer=setTimeout(()=>toast.classList.remove("show"),2800);
+}
+function askBot(q){
+  const msgs=document.getElementById("chatMessages"),sugs=document.getElementById("chatSugs");
+  sugs.style.display="none";
+  const u=document.createElement("div");u.className="msg user";u.textContent=q;msgs.appendChild(u);
+  const t=document.createElement("div");t.className="typing";t.innerHTML="<span></span><span></span><span></span>";msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    t.remove();
+    const b=document.createElement("div");b.className="msg bot";b.textContent=botAnswers[q]||"Para más información, contactanos directamente.";
+    msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;setTimeout(()=>sugs.style.display="flex",700);
+  },850);
+}
+</script>
+</body>
+</html>
